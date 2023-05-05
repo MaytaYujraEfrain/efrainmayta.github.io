@@ -2,3 +2,12 @@ body {
 
     background: linear-gradient(to right, #ffffff, #07d3da);
 }
+.lista {
+    padding: 12px;
+    align-content: center;
+}
+h2 {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0px 0;
+}
