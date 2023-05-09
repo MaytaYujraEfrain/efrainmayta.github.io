@@ -12,38 +12,25 @@ function updateIndicator() {
 window.addEventListener('online', updateIndicator);
 window.addEventListener('offline', updateIndicator);
 
-//geolocalizacion
-navigator.geolocation.getCurrentPosition((data) => console.table(data), (err) => console.error(err))
-
-//Gravar video
-// Declare global variables.
-const globalStream = null;
-
-// Active permisions of navigator for record video with audio.
-navigator.mediaDevices
-    .getUserMedia({ audio: true, video: true })
-    .then((stream) => {
-        globalStream = stream;
-    });
-
-
-// Declare array empty for save chunks.
-let recordedChunks = [];
-
-// Event for save data recorered into array chunks.
-mediaRecorder.addEventListener('dataavailable', (e) => {
-    if (e.data.size > 0) {
-        recordedChunks.push(e.data);
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
     }
-});
 
-// Event stop where you can execute custom actions.
-mediaRecorder.addEventListener('stop', function () {
-    console.log('addEventListener stop');
+    function showPosition(position) {
+        console.log("Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude);
+    }
 
-    // Create object url from blob.
-    const objectRef = URL.createObjectURL(new Blob(recordedChunks));
-});
+    function showPosition(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const mapsUrl = `https://www.google.es/maps/@-10.2937454,-68.0431863,7z=${lat},${lng}`;
+        window.open(mapsUrl, '_blank');
+    }
+    
+}
+
 
 //mensaje
 var a = document.createElement('a');

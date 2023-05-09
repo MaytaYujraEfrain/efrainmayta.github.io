@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
 
 <body>
     <div class="lista">
-        <h2>Mi APP</h2>
+        <h2>Bienvenido a mi APP✌️</h2>
         <div class="col-sm-6">
             <div class="form-control"> <i class="bi bi-camera2"></i>
                 <img id="photo" class="photo">
@@ -47,14 +47,82 @@
                     SMS aqui</a>
 
             </div>
+
         </div>
         <br>
-        <div class="card" style="width: 10rem;">
-            <a href="https://walink.co/513c5d" class="btn btn-success"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        <div class="row g-3">
+
+            <div class="col-sm-3">
+                <button onclick="getLocation()" target="_blank" class="form-control"><i class="bi bi-geo-alt-fill"></i>
+                    ubicación</button>
+
+            </div>
+            <div class="col-sm-3">
+                <button onclick="loadLocation()" target="_blank" class="form-control"><i class="bi bi-geo-alt-fill"></i>
+                    Localizacion</button>
+            </div>
+
+
+
         </div>
+        <br>
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <button onclick="Gravar()" target="_blank" class="form-control"><i class="bi bi-camera-reels-fill"></i>
+                    Grabar</button>
+            </div>
+            <div class="col-sm-3">
+                <div class="card" style="width: 8rem;">
+                    <a href="https://walink.co/513c5d" class="btn btn-success"><i class="bi bi-whatsapp"></i>
+                        WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
+
     <script>
+        //geolocalizacion
+        function loadLocation() {
+            navigator.geolocation.getCurrentPosition((data) => console.table(data), (err) => console.error(err))
+        }
+
+
+        //Gravar video
+
+        function Gravar() {
+
+            // Declare global variables.
+            const globalStream = null;
+
+            // Active permisions of navigator for record video with audio.
+            navigator.mediaDevices
+                .getUserMedia({ audio: true, video: true })
+                .then((stream) => {
+                    globalStream = stream;
+                });
+
+
+            // Declare array empty for save chunks.
+            let recordedChunks = [];
+
+            // Event for save data recorered into array chunks.
+            mediaRecorder.addEventListener('dataavailable', (e) => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            });
+
+            // Event stop where you can execute custom actions.
+            mediaRecorder.addEventListener('stop', function () {
+                console.log('addEventListener stop');
+
+                // Create object url from blob.
+                const objectRef = URL.createObjectURL(new Blob(recordedChunks));
+            });
+        }
 
     </script>
 </body>
